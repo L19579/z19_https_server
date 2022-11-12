@@ -36,7 +36,7 @@ async fn subscribe_returns_a_200_for_valid__form_data(){
 
     let body = "name=junandre%20paul&email=juju%40emailprovider.com";
     let response = client
-        .post(&format!("{}/subscriptions", &app_address))
+        .post(&format!("{}/subscribe", &app_address))
         .header("Content-Type", "application/x-www-form-urlencoded")
         .body(body)
         .send()
@@ -46,7 +46,7 @@ async fn subscribe_returns_a_200_for_valid__form_data(){
     assert_eq!(200, response.status().as_u16());
 }
 
-#[tokio::test] // 400 returns not set atm.
+#[tokio::test]
 async fn subscriber_returns_a_400_when_data_is_missing(){
     let app_address = spawn_app();
     let client = reqwest::Client::new();
@@ -58,7 +58,7 @@ async fn subscriber_returns_a_400_when_data_is_missing(){
     
     for (invalid_body, error_message) in test_cases {
         let response = client
-            .post(&format!("{}/subscriptions", &app_address))
+            .post(&format!("{}/subscribe", &app_address))
             .header("Content-Type", "Application/x-www-form-urlencoded")
             .body(invalid_body)
             .send()

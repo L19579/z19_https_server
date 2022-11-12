@@ -1,15 +1,12 @@
-use z19_https_server::run;
-
-/* now irrl example:
-async fn greet(req: HttpRequest) -> impl Responder{
-    let name = req.match_info().get("name").unwrap_or("World");
-    format!("Hello {}!", &name)  // formats to caller return type which impls Responder
-}
-*/
+use z19_https_server::{
+    run, get_configuration,
+};
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    let listener = std::net::TcpListener::bind("127.0.0.1:0")
-        .expect("Failed to bind to random IP");
+    let configuration = get_configuration()
+        .expect("Failed to read config");
+    let address = format!("127.0.0.1:{}", configuration.application_port);
+    let listener = std::net::TcpListener::bind(address)?;
     return run(listener)?.await;
 }
