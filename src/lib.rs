@@ -2,11 +2,15 @@ mod routes;
 mod startup;
 mod configuration;
 pub use {
+    log,
+    sqlx::{
+        Connection, PgPool,
+    },
     actix_web::{
         web, App,
         HttpRequest, HttpServer,
         Responder, HttpResponse,
-        dev::Server,
+        middleware, dev::Server,
     },
     std::{
         net::TcpListener,  

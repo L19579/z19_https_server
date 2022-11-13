@@ -12,9 +12,17 @@ name = "z19_https_server"
 
 [dependencies]
 config = "=0.13.2"
+chrono = "=0.4.23"
 actix-web = "=4.2.1"
+log = "=0.4.17" # likely to dump.
+env_logger = "=0.9.3"
+tracing = "=0.1.37" 
 tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread"] }
 serde = { version = "=1.0.147", features = ["derive"] }
+
+[dependencies.uuid]
+version = "=1.2.1"
+features = ["v4"]
 
 [dependencies.sqlx]
 version = "=0.5.7"
